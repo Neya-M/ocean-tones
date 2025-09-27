@@ -1,5 +1,8 @@
 const input = document.getElementById('input');
 
+var interval = null;
+
+
 // create web audio api elements
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
@@ -20,9 +23,7 @@ var ctx = canvas.getContext("2d");
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 
-freq = pitch / 10000;
 var amplitude = 40;
-var interval = null;
 
 notenames = new Map();
 notenames.set("A", 440);
@@ -36,7 +37,8 @@ notenames.set("G", 392);
 function frequency(pitch) {
 	gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
-	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)	
+	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)
+	freq = pitch / 10000;
 }
 
 audioCtx.resume();
