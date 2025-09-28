@@ -7,7 +7,7 @@ var reset = false;
 // create web audio api elements
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
-
+const vol_slider = document.getElementById('vol-slider');
 
 // create Oscillator node
 const oscillator = audioCtx.createOscillator();
@@ -28,7 +28,7 @@ var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 ctx.strokeStyle = "blue";
 
-var amplitude = 40;
+
 
 notenames = new Map();
 notenames.set("A", 440);
@@ -40,8 +40,11 @@ notenames.set("F", 349.2);
 notenames.set("G", 392);
 
 function frequency(pitch) {
-	gainNode.gain.setValueAtTime(50, audioCtx.currentTime)
-	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
+	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime)
+	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime);
+	setting = setInterval(() => {gainNode.gain.value = vol_slider.value}, 1);
+	setTimeout(() => { clearInterval(setting); gainNode.gain.value = 0; }, (timepernote/1000) - 0.1;
+	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + (timepernote/1000) - 0.1)
 	freq = pitch / 10000;
 }
@@ -90,7 +93,7 @@ function drawWave() {
 }
 
 function line() {
-	y = height/2 + amplitude * Math.sin(2 * Math.PI * freq * x * (0.5 * length));
+	y = height/2 + (vol_slider.value/100) * 20 * Math.sin(2 * Math.PI * freq * x * (0.5 * length));
 	ctx.lineTo(x, y);
 	ctx.stroke();
 	x += 1;
