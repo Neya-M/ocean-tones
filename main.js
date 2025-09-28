@@ -43,7 +43,7 @@ function frequency(pitch) {
 	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime)
 	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime);
 	setting = setInterval(() => {gainNode.gain.value = vol_slider.value}, 1);
-	setTimeout(() => { clearInterval(setting); gainNode.gain.value = 0; }, (timepernote/1000) - 0.1;
+	setTimeout(() => { clearInterval(setting); gainNode.gain.value = 0; }, (timepernote/1000) - 0.1);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + (timepernote/1000) - 0.1)
 	freq = pitch / 10000;
