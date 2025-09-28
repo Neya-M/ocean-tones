@@ -2,8 +2,9 @@
    border: 1px solid lightblue;
    background: darkturquoise;
    height: 800px;
-   width: 1700px;
-   margin-bottom: 2em;
+   width: 1750px;
+   margin-top: 2em;
+   margin-left: 0em;
 }
 body {
 	background: lightskyblue;

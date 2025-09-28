@@ -26,6 +26,7 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d"); 
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
+ctx.strokeStyle = "blue";
 
 var amplitude = 40;
 
@@ -39,7 +40,7 @@ notenames.set("F", 349.2);
 notenames.set("G", 392);
 
 function frequency(pitch) {
-	gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
+	gainNode.gain.setValueAtTime(50, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + (timepernote/1000) - 0.1)
 	freq = pitch / 10000;
