@@ -1,6 +1,7 @@
 const input = document.getElementById('input');
 
 var interval = null;
+var reset = false;
 
 
 // create web audio api elements
@@ -37,7 +38,7 @@ notenames.set("G", 392);
 function frequency(pitch) {
 	gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
-	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)
+	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 0.9)
 	freq = pitch / 10000;
 }
 
@@ -45,20 +46,41 @@ audioCtx.resume();
 gainNode.gain.value = 0;
 
 function handle() {
-	var userinput = String(input.value)
-   	frequency(notenames.get(userinput));
+	reset = true
+	var usernotes = String(input.value);
+	var noteslist = [];
+
+	for (i = 0; i < usernotes.length; i++) {
+   		noteslist.push(notenames.get(usernotes.charAt(i)));
+	}
+	let j = 0;
+   	repeat = setInterval(() => {
+       	if (j < noteslist.length) {
+           frequency(parseInt(noteslist[j]));
+           drawWave();
+       	j++
+       	} else {
+           clearInterval(repeat)
+       	}
+
+
+   }, 1000)
 	drawWave()
 }
 
 var counter = 0;
 function drawWave() {
-	ctx.clearRect(0, 0, width, height);
-	x = 0;
-	y = height/2;
-	ctx.moveTo(x, y); 
-	ctx.beginPath();
+	clearInterval(interval);
 	counter = 0;
 	interval = setInterval(line, 20);
+	if (reset) {
+       		ctx.clearRect(0, 0, width, height);
+       		x = 0;
+       		y = height/2;
+       		ctx.moveTo(x, y);
+      		ctx.beginPath();
+   	}
+	reset = false
 }
 
 function line() {
