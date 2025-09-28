@@ -20,6 +20,7 @@ gainNode.gain.value = 0;
 
 var timepernote = 0;
 var length = 0;
+var freq = 0;
 
 //define canvas variables
 var canvas = document.getElementById("canvas");
