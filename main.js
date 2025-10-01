@@ -20,7 +20,6 @@ gainNode.gain.value = 0;
 
 var timepernote = 0;
 var length = 0;
-var freq = 0;
 
 //define canvas variables
 var canvas = document.getElementById("canvas");
@@ -54,28 +53,32 @@ audioCtx.resume();
 gainNode.gain.value = 0;
 
 function handle() {
-	reset = true
-	var usernotes = String(input.value);
-	var noteslist = [];
-	length = usernotes.length;
-	timepernote = (6000 / length);
+    reset = true;
+    audioCtx.resume();
+    gainNode.gain.value = 0;
 
-	for (i = 0; i < usernotes.length; i++) {
-   		noteslist.push(notenames.get(usernotes.charAt(i)));
-	}
-	let j = 0;
-   	repeat = setInterval(() => {
-       	if (j < noteslist.length) {
+    var usernotes = String(input.value);
+    var noteslist = [];
+
+    length = usernotes.length;
+    timepernote = (6000 / length);
+
+    for (i = 0; i < usernotes.length; i++) {
+        noteslist.push(notenames.get(usernotes.charAt(i)));
+    }
+
+    let j = 0;
+    repeat = setInterval(() => {
+       if (j < noteslist.length) {
            frequency(parseInt(noteslist[j]));
            drawWave();
-       	j++
-       	} else {
+       j++
+       } else {
            clearInterval(repeat)
-       	}
+       }
 
 
-   	}, timepernote)
-	drawWave()
+   }, timepernote)
 }
 
 var counter = 0;
