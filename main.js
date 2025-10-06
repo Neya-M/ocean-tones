@@ -40,17 +40,13 @@ notenames.set("F", 349.2);
 notenames.set("G", 392);
 
 function frequency(pitch) {
-	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime)
+	freq = pitch / 10000;
 	gainNode.gain.setValueAtTime(vol_slider.value, audioCtx.currentTime);
 	setting = setInterval(() => {gainNode.gain.value = vol_slider.value}, 1);
-	setTimeout(() => { clearInterval(setting); gainNode.gain.value = 0; }, (timepernote/1000) - 0.1);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
+	setTimeout(() => { clearInterval(setting); gainNode.gain.value = 0; }, (timepernote/1000) - 0.1);
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + (timepernote/1000) - 0.1)
-	freq = pitch / 10000;
 }
-
-audioCtx.resume();
-gainNode.gain.value = 0;
 
 function handle() {
     reset = true;
