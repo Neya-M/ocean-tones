@@ -65,8 +65,8 @@ function line() {
 	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x));
 	ctx.lineTo(x, y);
 	ctx.stroke();
-	ctx.lineTo(x, -y);
-	ctx.stroke
+	ctx.lineTo(-x, y);
+	ctx.stroke();
 	x += 1;
 	counter++;
 	if(counter > 50) {
