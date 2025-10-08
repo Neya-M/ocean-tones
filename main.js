@@ -62,11 +62,14 @@ function drawWave() {
 }
 
 function line() {
-	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x));
+	halfpoint = width/2
+	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint));
 	if (counter % 2 == 0) {
-		ctx.lineTo(-x, y);
+		ctx.moveTo(-x + halfpoint + 1, y);
+		ctx.lineTo(-x + halfpoint, y);
 	} else {
-		ctx.lineTo(x, y);
+		ctx.moveTo(x + halfpoint - 1, y);
+		ctx.lineTo(x + halfpoint, y);
 	}
 	ctx.stroke();
 	x += 1;
