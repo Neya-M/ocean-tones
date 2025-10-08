@@ -64,7 +64,7 @@ function drawWave() {
 function line() {
 	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x));
 	if (counter % 2 == 0) {
-		ctx.lineto(-x, y);
+		ctx.lineTo(-x, y);
 	} else {
 		ctx.lineTo(x, y);
 	}
