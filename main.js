@@ -63,10 +63,13 @@ function drawWave() {
 
 function line() {
 	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x));
-	ctx.lineTo(x, y);
+	if (counter % 2 == 0) {
+		ctx.lineto(-x, y);
+	} else {
+		ctx.lineTo(x, y);
+	}
 	ctx.stroke();
 	x += 1;
-	x *= -1;
 	counter++;
 	if(counter > 100) {
 		clearInterval(interval);
