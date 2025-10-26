@@ -6,7 +6,6 @@ var interval = null;
 // create web audio api elements
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
-var slider = document.getElementById("slider");
 
 
 // create Oscillator node
@@ -29,6 +28,15 @@ var amplitude = 40;
 var img_length = 100;
 var movement_dist = 1;
 var move_count = 0;
+
+// slider
+var slider = document.getElementById('slider'),
+    sliderDiv = document.getElementById("sliderAmount");
+
+slide.onchange = function() {
+	sliderDiv.innerHTML = this.value;
+	change_wave_height(this.value);
+}
 
 notenames = new Map();
 notenames.set("A", 440);
@@ -53,8 +61,8 @@ function handle() {
 	var userinput = String(input.value)
    	frequency(notenames.get(userinput));
 	drawWave()
-	while true {
-		if movement_dist * move_count >= img_length {
+	while (true) {
+		if (movement_dist * move_count >= img_length) {
 			restart_wave();
 			move_count = 0;
 		} else {
