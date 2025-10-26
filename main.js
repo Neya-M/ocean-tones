@@ -61,16 +61,6 @@ function handle() {
 	var userinput = String(input.value)
    	frequency(notenames.get(userinput));
 	drawWave()
-	while (true) {
-		if (movement_dist * move_count >= img_length) {
-			restart_wave();
-			move_count = 0;
-		} else {
-			move_wave(movement_dist);
-			move_count += 1;
-		}
-		// if slider value changed then change_wave_height(slider value)
-	}
 }
 
 function handle_slider() {
@@ -79,7 +69,7 @@ function handle_slider() {
 //y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint))
 	
 function init() {
-	wave.src = "ocean_wave.png";
+	wave.src = "wave.jpg";
 	window.requestAnimationFrame(draw);
 }
 
@@ -87,6 +77,7 @@ function drawWave() {
 	ctx.globalCompositeOperation = "destination-over";
 	ctx.clearRect(0, 0, 300, 300); // clear canvas
 	ctx.drawImage(wave, 0, 0);
+	console.log("drew wave");
 }
 
 function change_wave_height(height) {
@@ -94,6 +85,7 @@ function change_wave_height(height) {
 	ctx.scale(1, height); // (width, height)
 	ctx.drawImage(wave, 0, 0);
 	ctx.restore();
+	console.log("changed wave height");
 }
 
 function move_wave(distance) {
@@ -101,6 +93,7 @@ function move_wave(distance) {
 	ctx.translate(distance, 0); // (x, y)
 	ctx.drawImage(wave, 0, 0);
 	ctx.restore();
+	console.log("moved wave");
 }
 
 function restart_wave() {
@@ -108,4 +101,15 @@ function restart_wave() {
 	ctx.translate(-img_length, 0);
 	ctx.drawImage(wave, 0, 0);
 	ctx.restore();
+	console.log("restarted wave");
+}
+
+while (true) {
+	if (movement_dist * move_count >= img_length) {
+		restart_wave();
+		move_count = 0;
+	} else {
+		move_wave(movement_dist);
+		move_count += 1;
+	}
 }
