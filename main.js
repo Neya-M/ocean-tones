@@ -33,7 +33,7 @@ var move_count = 0;
 var slider = document.getElementById('slider'),
     sliderDiv = document.getElementById("sliderAmount");
 
-slide.onchange = function() {
+slider.onchange = function() {
 	sliderDiv.innerHTML = this.value;
 	change_wave_height(this.value);
 }
