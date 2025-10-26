@@ -6,6 +6,7 @@ var interval = null;
 // create web audio api elements
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
+var slider = document.getElementById("slider");
 
 
 // create Oscillator node
@@ -22,8 +23,12 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d"); 
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
+const wave = new Image();
 
 var amplitude = 40;
+var img_length = 100;
+var movement_dist = 1;
+var move_count = 0;
 
 notenames = new Map();
 notenames.set("A", 440);
@@ -48,33 +53,51 @@ function handle() {
 	var userinput = String(input.value)
    	frequency(notenames.get(userinput));
 	drawWave()
-}
-
-var counter = 0;
-function drawWave() {
-	ctx.clearRect(0, 0, width, height);
-	x = width/2;
-	y = height/2;
-	ctx.moveTo(x, y); 
-	ctx.beginPath();
-	counter = 0;
-	interval = setInterval(line, 20);
-}
-
-function line() {
-	halfpoint = width/2
-	y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint));
-	if (counter % 2 == 0) {
-		ctx.moveTo(-x + halfpoint + 1, y);
-		ctx.lineTo(-x + halfpoint, y);
-	} else {
-		ctx.moveTo(x + halfpoint - 1, y);
-		ctx.lineTo(x + halfpoint, y);
+	while true {
+		if movement_dist * move_count >= img_length {
+			restart_wave();
+			move_count = 0;
+		} else {
+			move_wave(movement_dist);
+			move_count += 1;
+		}
+		// if slider value changed then change_wave_height(slider value)
 	}
-	ctx.stroke();
-	x += 1;
-	counter++;
-	if(counter > 100) {
-		clearInterval(interval);
-  	}
+}
+
+function handle_slider() {
+	change_wave_height(slider.value)
+}
+//y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint))
+	
+function init() {
+	wave.src = "ocean_wave.png";
+	window.requestAnimationFrame(draw);
+}
+
+function drawWave() {
+	ctx.globalCompositeOperation = "destination-over";
+	ctx.clearRect(0, 0, 300, 300); // clear canvas
+	ctx.drawImage(wave, 0, 0);
+}
+
+function change_wave_height(height) {
+	ctx.save();
+	ctx.scale(1, height); // (width, height)
+	ctx.drawImage(wave, 0, 0);
+	ctx.restore();
+}
+
+function move_wave(distance) {
+	ctx.save();
+	ctx.translate(distance, 0); // (x, y)
+	ctx.drawImage(wave, 0, 0);
+	ctx.restore();
+}
+
+function restart_wave() {
+	ctx.save();
+	ctx.translate(-img_length, 0);
+	ctx.drawImage(wave, 0, 0);
+	ctx.restore();
 }
