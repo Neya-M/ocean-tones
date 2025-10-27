@@ -49,10 +49,12 @@ function handle() {
 	frequency()
 }
 
-while (true) {
-	drawWave();
-	phase += 1;
+function animate() {
+  drawWave();
+  phase += 1;
+  requestAnimationFrame(animate);
 }
+animate();
 
 function drawWave() {
     ctx.clearRect(0, 0, width, height);
