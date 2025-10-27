@@ -24,10 +24,8 @@ var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 const wave = new Image();
 
-var amplitude = 40;
-var img_length = 100;
-var movement_dist = 1;
-var move_count = 0;
+var amplitude = 20;
+var phase = 0;
 
 // slider
 var slider = document.getElementById('slider'),
@@ -48,9 +46,8 @@ notenames.set("F", 349.2);
 notenames.set("G", 392);
 
 function frequency(pitch) {
-	gainNode.gain.setValueAtTime(100, audioCtx.currentTime)
+	gainNode.gain.setValueAtTime(20, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
-	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1)
 	freq = pitch / 10000;
 }
 
@@ -60,56 +57,29 @@ gainNode.gain.value = 0;
 function handle() {
 	var userinput = String(input.value)
    	frequency(notenames.get(userinput));
-	drawWave()
 }
 
 function handle_slider() {
 	change_wave_height(slider.value)
 }
 //y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint))
-	
-function init() {
-	wave.src = "wave.jpg";
-	window.requestAnimationFrame(draw);
+
+while (true) {
+	drawWave();
+	phase += 1;
 }
 
 function drawWave() {
-	ctx.globalCompositeOperation = "destination-over";
-	ctx.clearRect(0, 0, 300, 300); // clear canvas
-	ctx.drawImage(wave, 0, 0);
-	console.log("drew wave");
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    for (let x = 0; x < width; x++) {
+        let y = height/2 + (amplitude * Math.sin(2 * Math.PI * x * freq + phase));
+        if (x === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    ctx.stroke();
 }
 
-function change_wave_height(height) {
-	ctx.save();
-	ctx.scale(1, height); // (width, height)
-	ctx.drawImage(wave, 0, 0);
-	ctx.restore();
-	console.log("changed wave height");
-}
-
-function move_wave(distance) {
-	ctx.save();
-	ctx.translate(distance, 0); // (x, y)
-	ctx.drawImage(wave, 0, 0);
-	ctx.restore();
-	console.log("moved wave");
-}
-
-function restart_wave() {
-	ctx.save();
-	ctx.translate(-img_length, 0);
-	ctx.drawImage(wave, 0, 0);
-	ctx.restore();
-	console.log("restarted wave");
-}
-
-while (true) {
-	if (movement_dist * move_count >= img_length) {
-		restart_wave();
-		move_count = 0;
-	} else {
-		move_wave(movement_dist);
-		move_count += 1;
-	}
-}
