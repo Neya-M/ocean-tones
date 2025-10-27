@@ -38,16 +38,7 @@ slider.onchange = function() {
 	pitch = this.value;
 }
 
-notenames = new Map();
-notenames.set("A", 440);
-notenames.set("B", 493.9);
-notenames.set("C", 261.6);
-notenames.set("D", 293.7);
-notenames.set("E", 329.6);
-notenames.set("F", 349.2);
-notenames.set("G", 392);
-
-function frequency(pitch) {
+function frequency() {
 	gainNode.gain.setValueAtTime(20, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
 	freq = pitch / 10000;
@@ -57,14 +48,9 @@ audioCtx.resume();
 gainNode.gain.value = 0;
 
 function handle() {
-	var userinput = String(pitch)
-   	frequency(notenames.get(userinput));
+	pitch = slider.value
+	frequency()
 }
-
-function handle_slider() {
-	change_wave_height(slider.value)
-}
-//y = height/2 + (amplitude * Math.sin(2 * Math.PI * freq * x + halfpoint))
 
 while (true) {
 	drawWave();
