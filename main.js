@@ -26,6 +26,7 @@ const wave = new Image();
 
 var amplitude = 20;
 var phase = 0;
+var freq = 0;
 
 // slider
 var slider = document.getElementById('slider'),
@@ -33,7 +34,7 @@ var slider = document.getElementById('slider'),
 
 slider.onchange = function() {
 	sliderDiv.innerHTML = this.value;
-	change_wave_height(this.value);
+	pitch = this.value;
 }
 
 notenames = new Map();
@@ -55,7 +56,7 @@ audioCtx.resume();
 gainNode.gain.value = 0;
 
 function handle() {
-	var userinput = String(input.value)
+	var userinput = String(pitch)
    	frequency(notenames.get(userinput));
 }
 
