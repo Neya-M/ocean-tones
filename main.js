@@ -56,22 +56,29 @@ function handle() {
 
 function animate() {
   drawWave();
-  phase -= 0.01;
+  phase -= 0.1;
   requestAnimationFrame(animate);
 }
 animate();
 
 function drawWave() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.beginPath();
-    for (let x = 0; x < width; x++) {
-        let y = height/2 + (amplitude * Math.sin(2 * Math.PI * x * freq + phase));
-        if (x === 0) {
-            ctx.moveTo(x, y);
-        } else {
-            ctx.lineTo(x, y);
-        }
-    }
-    ctx.stroke();
+    	ctx.clearRect(0, 0, width, height);
+    	ctx.beginPath();
+	ctx.strokeStyle = `rgb(0, 191, 255)`;
+	const gradient = ctx.createLinearGradient(0, 0, 0, 0);
+	gradient.addColorStop(0, `rgb(0, 191, 255)`);
+	gradient.addColorStop(1, `rgb(30, 144, 255)`);
+	ctx.fillStyle = gradient;
+    	for (let x = 0; x < width; x++) {
+        	let y = height/2 + (amplitude * Math.sin(2 * Math.PI * x * freq + phase));
+        	if (x === 0) {
+            	ctx.moveTo(x, y);
+        	} else {
+            	ctx.lineTo(x, y);
+        	}
+    	}
+	ctx.lineTo(width - 1, height);
+    	ctx.lineTo(0, height);
+    	ctx.closePath();
 }
 
