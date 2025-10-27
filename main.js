@@ -65,7 +65,7 @@ function drawWave() {
     	ctx.clearRect(0, 0, width, height);
     	ctx.beginPath();
 	ctx.strokeStyle = `rgb(0, 191, 255)`;
-	const gradient = ctx.createLinearGradient(0, 0, 0, 0);
+	const gradient = ctx.createLinearGradient(0, 0, 0, height);
 	gradient.addColorStop(0, `rgb(0, 191, 255)`);
 	gradient.addColorStop(1, `rgb(30, 144, 255)`);
 	ctx.fillStyle = gradient;
