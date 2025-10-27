@@ -52,7 +52,6 @@ gainNode.gain.value = 0;
 
 function handle() {
 	frequency()
-	amplitude = 1001 - pitch + 100 / 10
 }
 
 function animate() {
@@ -71,7 +70,7 @@ function drawWave() {
 	gradient.addColorStop(1, `rgb(30, 144, 255)`);
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
-        	let y = height/3 + (amplitude * Math.sin(2 * Math.PI * x * freq + phase));
+        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * freq + phase));
         	if (x === 0) {
             	ctx.moveTo(x, y);
         	} else {
