@@ -33,6 +33,9 @@ var pitch = 0;
 var slider = document.getElementById('slider'),
     sliderDiv = document.getElementById("sliderAmount");
 
+sliderDiv.innerHTML = slider.value;
+pitch = slider.value;
+
 slider.onchange = function() {
 	sliderDiv.innerHTML = this.value;
 	pitch = this.value;
@@ -48,7 +51,6 @@ audioCtx.resume();
 gainNode.gain.value = 0;
 
 function handle() {
-	pitch = slider.value
 	frequency()
 }
 
