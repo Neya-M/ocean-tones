@@ -27,7 +27,7 @@ button:hover {
 	opacity: 1;
 }
 input {
-	border: 2px solid lightcyan;
+	border: 5px solid lightcyan;
 	background: dodgerblue;
 	color: lightcyan;
 	border-radius: 5px;
