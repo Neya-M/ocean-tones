@@ -1,8 +1,3 @@
-const input = document.getElementById('input');
-
-var interval = null;
-
-
 // create web audio api elements
 const audioCtx = new AudioContext();
 const gainNode = audioCtx.createGain();
