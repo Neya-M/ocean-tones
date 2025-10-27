@@ -34,12 +34,17 @@ pitch = slider.value;
 slider.onchange = function() {
 	sliderDiv.innerHTML = this.value;
 	pitch = this.value;
+	frequency()
 }
 
 function frequency() {
 	gainNode.gain.setValueAtTime(20, audioCtx.currentTime)
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime)
 	freq = pitch / 10000;
+}
+
+function stop() {
+	gainNode.gain.setValueAtTime(0, audioCtx.currentTime)
 }
 
 audioCtx.resume();
@@ -51,7 +56,7 @@ function handle() {
 
 function animate() {
   drawWave();
-  phase += 1;
+  phase -= 0.01;
   requestAnimationFrame(animate);
 }
 animate();
