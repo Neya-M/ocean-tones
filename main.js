@@ -80,5 +80,6 @@ function drawWave() {
 	ctx.lineTo(width - 1, height);
     	ctx.lineTo(0, height);
     	ctx.closePath();
+	ctx.fill();
 }
 
