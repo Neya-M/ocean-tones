@@ -27,6 +27,7 @@ const wave = new Image();
 var amplitude = 20;
 var phase = 0;
 var freq = 0;
+var pitch = 0;
 
 // slider
 var slider = document.getElementById('slider'),

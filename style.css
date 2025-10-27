@@ -15,7 +15,7 @@ body {
 }
 button {
 	border: 5px solid lightcyan;
-	background: transparent;
+	background: dodgerblue;
 	color: lightcyan;
 	border-radius: 25px;
 	font-family: monospace;
