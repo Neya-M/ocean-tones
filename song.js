@@ -64,6 +64,9 @@ function play() {
 
 function addNote(note) {
 	pitch = frequencies[note];
+	console.log(pitch)
+	console.log(frequencies[note])
+	console.log(note)
 	notes.push(pitch)
 	frequency();
 }
