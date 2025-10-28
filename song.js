@@ -47,6 +47,8 @@ function frequency() {
 	gainNode.gain.setValueAtTime(amplitude, audioCtx.currentTime);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
 	freq = pitch / 10000;
+	gainNode.gain.setValueAtTime(amplitude/2, audioCtx.currentTime + 0.8);
+	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1);
 }
 
 function stop() {
@@ -59,14 +61,12 @@ gainNode.gain.value = 0;
 function play() {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
+		progress = 0;
 	}
 }
 
 function addNote(note) {
-	pitch = frequencies[note];
-	console.log(pitch)
-	console.log(frequencies[note])
-	console.log(note)
+	pitch = frequencies.get(note);
 	notes.push(pitch)
 	frequency();
 }
