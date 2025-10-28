@@ -18,10 +18,13 @@ var ctx = canvas.getContext("2d");
 var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 const wave = new Image();
+const gradient = ctx.createLinearGradient(0, 0, 0, height);
+gradient.addColorStop(0, `rgb(0, 191, 255)`);
+gradient.addColorStop(1, `rgb(30, 144, 255)`);
 
 var amplitude = 20;
 var progress = 0;
-var pitch = 0;
+var pitch = 30;
 var notes = [];
 let frequencies = new Map();
 frequencies.set("C3", 130.81);
@@ -39,13 +42,11 @@ frequencies.set("G4", 392);
 frequencies.set("A4", 440);
 frequencies.set("B4", 493.88);
 
-
-pitch = 30;
-
 function frequency() {
 	gainNode.gain.setValueAtTime(amplitude, audioCtx.currentTime);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
-	gainNode.gain.exponentialRampToValueAtTime(0, audioCtx.currentTime + 1);
+	gainNode.gain.exponentialRampToValueAtTime(0.1, audioCtx.currentTime + 0.99);
+	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1);
 }
 
 function stop() {
@@ -78,16 +79,17 @@ function addNote(note) {
 function animate() {
   	drawWave();
   	requestAnimationFrame(animate);
-	progress += 1;
+	if (progress < height) {
+		progress += 1;
+	} else {
+		progress = 0;
+	}
 }
 
 function drawWave() {
     	ctx.clearRect(0, 0, width, height);
     	ctx.beginPath();
 	ctx.strokeStyle = `rgb(0, 191, 255)`;
-	const gradient = ctx.createLinearGradient(0, 0, 0, height);
-	gradient.addColorStop(0, `rgb(0, 191, 255)`);
-	gradient.addColorStop(1, `rgb(30, 144, 255)`);
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
         	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
@@ -101,6 +103,16 @@ function drawWave() {
     	ctx.lineTo(0, 0);
     	ctx.closePath();
 	ctx.fill();
+	for (let x = 0; x < width; x++) {
+        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
+        	if (x === 0) {
+            	ctx.moveTo(x, y + progress/2);
+        	} else {
+            	ctx.lineTo(x, y + progress/2);
+        	}
+    	}
+	ctx.lineTo(width - 1, 0);
+    	ctx.lineTo(0, 0);
+    	ctx.closePath();
+	ctx.fill();
 }
-
-
