@@ -45,8 +45,7 @@ pitch = 30;
 function frequency() {
 	gainNode.gain.setValueAtTime(amplitude, audioCtx.currentTime);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
-	gainNode.gain.setValueAtTime(amplitude/2, audioCtx.currentTime + 0.8);
-	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1);
+	gainNode.gain.exponentialRampToValueAtTime(0, audioCtx.currentTime + 1);
 }
 
 function stop() {
@@ -56,11 +55,15 @@ function stop() {
 audioCtx.resume();
 gainNode.gain.value = 0;
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function play() {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
 		animate();
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		sleep(1000);
 		progress = 0;
 	}
 }
