@@ -21,7 +21,6 @@ const wave = new Image();
 
 var amplitude = 20;
 var progress = 0;
-var freq = 0;
 var pitch = 0;
 var notes = [];
 let frequencies = new Map();
@@ -46,7 +45,6 @@ pitch = 30;
 function frequency() {
 	gainNode.gain.setValueAtTime(amplitude, audioCtx.currentTime);
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
-	freq = pitch / 10000;
 	gainNode.gain.setValueAtTime(amplitude/2, audioCtx.currentTime + 0.8);
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1);
 }
@@ -61,6 +59,7 @@ gainNode.gain.value = 0;
 function play() {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
+		animate();
 		progress = 0;
 	}
 }
@@ -68,6 +67,7 @@ function play() {
 function addNote(note) {
 	pitch = frequencies.get(note);
 	notes.push(pitch)
+	console.log(notes)
 	frequency();
 }
 
@@ -76,7 +76,6 @@ function animate() {
   	requestAnimationFrame(animate);
 	progress += 1;
 }
-animate();
 
 function drawWave() {
     	ctx.clearRect(0, 0, width, height);
@@ -87,7 +86,7 @@ function drawWave() {
 	gradient.addColorStop(1, `rgb(30, 144, 255)`);
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
-        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * freq));
+        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
         	if (x === 0) {
             	ctx.moveTo(x, y + progress);
         	} else {
