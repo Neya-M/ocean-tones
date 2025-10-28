@@ -60,6 +60,7 @@ function play() {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
 		animate();
+		await new Promise(resolve => setTimeout(resolve, 1000));
 		progress = 0;
 	}
 }
