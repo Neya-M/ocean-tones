@@ -20,7 +20,7 @@ var height = ctx.canvas.height;
 const wave = new Image();
 const gradient = ctx.createLinearGradient(0, 0, 0, height);
 gradient.addColorStop(0, `rgb(0, 191, 255)`);
-gradient.addColorStop(1, `rgb(30, 144, 255)`);
+gradient.addColorStop(1, "transparent");
 
 var amplitude = 20;
 var progress = 0;
