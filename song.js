@@ -56,15 +56,13 @@ function stop() {
 audioCtx.resume();
 gainNode.gain.value = 0;
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
-function play() {
+function play = async () => {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
 		animate();
-		await sleep(1000);
+		await delay(1000);
 	}
 	stop();
 }
