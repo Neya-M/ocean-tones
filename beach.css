@@ -1,0 +1,58 @@
+#canvas {
+	border: none;
+	background: bisque;
+	height: 850px;
+	width: 1750px;
+	margin-top: 0.5em;
+	margin-left: -0.75em;
+	margin-bottom: -5em;
+}
+body {
+	background: deepskyblue;
+	font-family: monospace;
+    	font-size: 50px;
+    	color: lightcyan;
+	text-align: center;
+}
+button {
+	border: 5px solid lightcyan;
+	background: dodgerblue;
+	color: lightcyan;
+	border-radius: 25px;
+	font-family: monospace;
+	font-size: 50px;
+	opacity: 0.7;
+	margin-top: 0.5em;
+}
+button:hover {
+	opacity: 1;
+}
+input {
+	border: 5px solid lightcyan;
+	background: dodgerblue;
+	color: lightcyan;
+	border-radius: 5px;
+	height: 50px;
+	width: 90%;
+	opacity: 0.9;
+	appearance: none;
+}
+input::-webkit-slider-thumb {
+    	appearance: none;
+    	width: 70px;
+    	height: 60px;
+	background: lightcyan;
+}
+a {
+	color: lightcyan;
+	border-radius: 25px;
+	border: 5px solid lightcyan;
+	background: dodgerblue;
+	font-family: monospace;
+	font-size: 50px;
+	opacity: 0.7;
+	text-decoration: none;
+}
+a:hover {
+	opacity: 1;
+}

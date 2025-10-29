@@ -20,9 +20,10 @@ var height = ctx.canvas.height;
 const wave = new Image();
 const gradient = ctx.createLinearGradient(0, 0, 0, height);
 gradient.addColorStop(0, `rgb(0, 191, 255)`);
-gradient.addColorStop(1, "transparent");
+gradient.addColorStop(1, `rgb(30, 144, 255)`);
 
 var amplitude = 20;
+var stop = false;
 var progress = 0;
 var pitch = 30;
 var notes = [];
@@ -65,6 +66,7 @@ const play = async () => {
 		frequency();
 		animate();
 		await delay(1000);
+		stop = true;
 	}
 	stop();
 }
@@ -86,18 +88,19 @@ let animationId;
 
 function animate() {
   	drawWave();
-	if (progress < height) {
+	if (stop) {
 		animationId = requestAnimationFrame(animate);
 		progress += 1;
 	} else {
 		progress = 0;
+		stop = false;
 	}
 }
 
 function drawWave() {
     	ctx.clearRect(0, 0, width, height);
     	ctx.beginPath();
-	ctx.strokeStyle = `rgb(0, 191, 255)`;
+	ctx.strokeStyle = "white";
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
         	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
@@ -107,6 +110,7 @@ function drawWave() {
             	ctx.lineTo(x, y + progress);
         	}
     	}
+	ctx.stroke();
 	ctx.lineTo(width - 1, 0);
     	ctx.lineTo(0, 0);
     	ctx.closePath();
