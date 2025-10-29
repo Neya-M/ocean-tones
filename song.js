@@ -64,9 +64,13 @@ function play() {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
 		animate();
-		sleep(1000);
-		progress = 0;
+		await sleep(1000);
 	}
+	stop();
+}
+
+function stop() {
+	cancelAnimationFrame(animationId);
 }
 
 function addNote(note) {
@@ -76,10 +80,12 @@ function addNote(note) {
 	frequency();
 }
 
+let animationId;
+
 function animate() {
   	drawWave();
-  	requestAnimationFrame(animate);
 	if (progress < height) {
+		animationId = requestAnimationFrame(animate);
 		progress += 1;
 	} else {
 		progress = 0;
