@@ -58,7 +58,7 @@ gainNode.gain.value = 0;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-function play = async () => {
+const play = async () => {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
 		animate();
