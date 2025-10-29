@@ -56,3 +56,15 @@ a {
 a:hover {
 	opacity: 1;
 }
+.horizontal-container {
+	display: flex;
+	align-items: center; 
+	gap: 10px;
+}
+#notes {
+	margin: 0;
+}
+p {
+    border: 5px inset dodgerblue;
+    border-radius: 20px;
+}

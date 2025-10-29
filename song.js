@@ -23,7 +23,7 @@ gradient.addColorStop(0, `rgb(0, 191, 255)`);
 gradient.addColorStop(1, `rgb(30, 144, 255)`);
 
 var amplitude = 20;
-var stop = false;
+var restart = false;
 var progress = 0;
 var pitch = 30;
 var notes = [];
@@ -66,7 +66,7 @@ const play = async () => {
 		frequency();
 		animate();
 		await delay(1000);
-		stop = true;
+		restart = true;
 	}
 	stop();
 }
@@ -88,12 +88,12 @@ let animationId;
 
 function animate() {
   	drawWave();
-	if (stop) {
+	if (restart) {
 		animationId = requestAnimationFrame(animate);
 		progress += 1;
 	} else {
 		progress = 0;
-		stop = false;
+		restart = false;
 	}
 }
 
