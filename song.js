@@ -62,6 +62,9 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const play = async () => {
 	for (let i = 0; i < notes.length; i++) {
 		frequency(notes[i]);
+		console.log(i);
+		console.log(notes);
+		console.log(notes[i]);
 		animate();
 		await delay(1000);
 	}
