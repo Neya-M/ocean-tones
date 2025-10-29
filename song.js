@@ -26,6 +26,7 @@ var amplitude = 20;
 var progress = 0;
 var pitch = 30;
 var notes = [];
+var noteLetters = [];
 let frequencies = new Map();
 frequencies.set("C3", 130.81);
 frequencies.set("D3", 146.83);
@@ -73,8 +74,10 @@ function stop() {
 
 function addNote(note) {
 	pitch = frequencies.get(note);
-	notes.push(pitch)
-	console.log(notes)
+	notes.push(pitch);
+	noteLetters.push(" " + note);
+	document.getElementById("notes").textContent = noteLetters.toString();	
+	console.log(notes);
 	frequency();
 }
 
