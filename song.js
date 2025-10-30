@@ -25,7 +25,10 @@ gradient.addColorStop(1, "white");
 
 var amplitude = 20;
 var restart = false;
+var reverse = false;
+var endpoint = 0;
 var progress = 0;
+var pitchSave = 0;
 var pitch = 30;
 var notes = [];
 var noteLetters = [];
@@ -62,11 +65,16 @@ gainNode.gain.value = 0;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const play = async () => {
+	restart = true;
 	for (let i = 0; i < notes.length; i++) {
 		pitch = notes[i];
 		frequency();
 		animate();
-		await delay(1000);
+		await delay(500);
+		reverse = true;
+		endpoint = progress;
+		pitchSave = pitch;
+		await delay(500);
 		restart = true;
 	}
 	stop();
@@ -74,6 +82,7 @@ const play = async () => {
 
 function stop() {
 	cancelAnimationFrame(animationId);
+	progress = 0;
 }
 
 function addNote(note) {
@@ -88,11 +97,14 @@ function addNote(note) {
 let animationId;
 
 function animate() {
+	drawWetSand();
   	drawWave();
 	animationId = requestAnimationFrame(animate);
 	if (restart) {
 		progress = 0;
 		restart = false;
+	} else if (reverse) {
+		progress -= 1;
 	} else {
 		progress += 1;
 	}
@@ -105,6 +117,19 @@ function drawWave() {
     	for (let x = 0; x < width; x++) {
         	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
             	ctx.lineTo(x, y + progress);
+    	}
+	ctx.lineTo(width - 1, 0);
+    	ctx.lineTo(0, 0);
+    	ctx.closePath();
+	ctx.fill();
+}
+function drawWetSand() {
+    	ctx.clearRect(0, 0, width, height);
+    	ctx.beginPath();
+	ctx.fillStyle = `rgb(222, 184, 135)`;
+    	for (let x = 0; x < width; x++) {
+        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitchSave/10000));
+            	ctx.lineTo(x, y + endpoint);
     	}
 	ctx.lineTo(width - 1, 0);
     	ctx.lineTo(0, 0);
