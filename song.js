@@ -67,6 +67,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const play = async () => {
 	restart = true;
 	for (let i = 0; i < notes.length; i++) {
+		reverse = false;
 		pitch = notes[i];
 		frequency();
 		animate();
@@ -76,7 +77,6 @@ const play = async () => {
 		pitchSave = pitch;
 		await delay(500);
 		restart = true;
-		reverse = false;
 	}
 	stop();
 }
@@ -115,7 +115,7 @@ function drawWave() {
     	ctx.beginPath();
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
-        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
+        	let y = (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
             	ctx.lineTo(x, y + progress);
     	}
 	ctx.lineTo(width - 1, 0);
