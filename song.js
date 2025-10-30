@@ -19,8 +19,9 @@ var width = ctx.canvas.width;
 var height = ctx.canvas.height;
 const wave = new Image();
 const gradient = ctx.createLinearGradient(0, 0, 0, height);
-gradient.addColorStop(0, `rgb(0, 191, 255)`);
-gradient.addColorStop(1, `rgb(30, 144, 255)`);
+gradient.addColorStop(0, `rgb(30, 144, 255)`);
+gradient.addColorStop(0.9, `rgb(0, 191, 255)`);
+gradient.addColorStop(1, "white");
 
 var amplitude = 20;
 var restart = false;
@@ -108,19 +109,6 @@ function drawWave() {
             	ctx.moveTo(x, y + progress);
         	} else {
             	ctx.lineTo(x, y + progress);
-        	}
-    	}
-	ctx.stroke();
-	ctx.lineTo(width - 1, 0);
-    	ctx.lineTo(0, 0);
-    	ctx.closePath();
-	ctx.fill();
-	for (let x = 0; x < width; x++) {
-        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
-        	if (x === 0) {
-            	ctx.moveTo(x, y + progress/2);
-        	} else {
-            	ctx.lineTo(x, y + progress/2);
         	}
     	}
 	ctx.lineTo(width - 1, 0);
