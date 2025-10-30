@@ -20,7 +20,7 @@ var height = ctx.canvas.height;
 const wave = new Image();
 const gradient = ctx.createLinearGradient(0, 0, 0, height);
 gradient.addColorStop(0, `rgb(30, 144, 255)`);
-gradient.addColorStop(0.9, `rgb(0, 191, 255)`);
+gradient.addColorStop(0.7, `rgb(0, 191, 255)`);
 gradient.addColorStop(1, "white");
 
 var amplitude = 20;
@@ -89,27 +89,22 @@ let animationId;
 
 function animate() {
   	drawWave();
+	animationId = requestAnimationFrame(animate);
 	if (restart) {
-		animationId = requestAnimationFrame(animate);
-		progress += 1;
-	} else {
 		progress = 0;
 		restart = false;
+	} else {
+		progress += 1;
 	}
 }
 
 function drawWave() {
     	ctx.clearRect(0, 0, width, height);
     	ctx.beginPath();
-	ctx.strokeStyle = "white";
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
         	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitch/10000));
-        	if (x === 0) {
-            	ctx.moveTo(x, y + progress);
-        	} else {
             	ctx.lineTo(x, y + progress);
-        	}
     	}
 	ctx.lineTo(width - 1, 0);
     	ctx.lineTo(0, 0);
