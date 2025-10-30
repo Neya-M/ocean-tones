@@ -15,7 +15,7 @@ body {
 	text-align: center;
 }
 button {
-	border: 5px solid lightcyan;
+	border: 5px dotted lightcyan;
 	background: dodgerblue;
 	color: lightcyan;
 	border-radius: 25px;
@@ -25,10 +25,11 @@ button {
 	margin-top: 0.5em;
 }
 button:hover {
+    	border: 5px solid dodgerblue;
 	opacity: 1;
 }
 input {
-	border: 5px solid lightcyan;
+	border: 5px dotted lightcyan;
 	background: dodgerblue;
 	color: lightcyan;
 	border-radius: 5px;
@@ -46,25 +47,35 @@ input::-webkit-slider-thumb {
 a {
 	color: lightcyan;
 	border-radius: 25px;
-	border: 5px solid lightcyan;
+	border: 5px dotted lightcyan;
 	background: dodgerblue;
 	font-family: monospace;
 	font-size: 50px;
 	opacity: 0.7;
 	text-decoration: none;
+	margin: 10px;
 }
 a:hover {
+    	border: 5px solid dodgerblue;
 	opacity: 1;
 }
 .horizontal-container {
 	display: flex;
 	align-items: center; 
-	gap: 10px;
+	gap: 32%;
 }
 #notes {
-	margin: 0;
+	margin: 10px;
+}
+#play {
+	margin: 10px;
 }
 p {
-    border: 5px inset dodgerblue;
-    border-radius: 20px;
+    	border: 5px dotted dodgerblue;
+   	opacity: 0.7;
+    	border-radius: 20px;
+}
+p:hover {
+    	border: 5px solid dodgerblue;
+	opacity: 1;
 }

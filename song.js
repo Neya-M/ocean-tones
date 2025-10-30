@@ -65,6 +65,7 @@ gainNode.gain.value = 0;
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const play = async () => {
+	stop();
 	restart = true;
 	for (let i = 0; i < notes.length; i++) {
 		reverse = false;
@@ -84,6 +85,7 @@ const play = async () => {
 function stop() {
 	cancelAnimationFrame(animationId);
 	progress = 0;
+	animationId = null;
 }
 
 function addNote(note) {
