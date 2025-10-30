@@ -112,7 +112,6 @@ function animate() {
 }
 
 function drawWave() {
-    	ctx.clearRect(0, 0, width, height);
     	ctx.beginPath();
 	ctx.fillStyle = gradient;
     	for (let x = 0; x < width; x++) {
@@ -129,7 +128,7 @@ function drawWetSand() {
     	ctx.beginPath();
 	ctx.fillStyle = `rgb(222, 184, 135)`;
     	for (let x = 0; x < width; x++) {
-        	let y = height/3 + (amplitude/2 * Math.sin(2 * Math.PI * x * pitchSave/10000));
+        	let y = (amplitude/2 * Math.sin(2 * Math.PI * x * pitchSave/10000));
             	ctx.lineTo(x, y + endpoint);
     	}
 	ctx.lineTo(width - 1, 0);
