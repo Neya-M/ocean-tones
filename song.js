@@ -104,7 +104,7 @@ function animate() {
   	drawWave();
 	animationId = requestAnimationFrame(animate);
 	if (restart) {
-		progress = -10;
+		progress = -14;
 		restart = false;
 	} else if (reverse) {
 		progress -= 3;
