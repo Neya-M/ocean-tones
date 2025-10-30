@@ -78,8 +78,8 @@ const play = async () => {
 		pitchSave = pitch;
 		await delay(500);
 		restart = true;
+		stop();
 	}
-	stop();
 }
 
 function stop() {

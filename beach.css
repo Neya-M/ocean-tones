@@ -56,13 +56,13 @@ a {
 	margin: 10px;
 }
 a:hover {
-    	border: 5px solid dodgerblue;
+    	border: 5px solid lightcyan;
 	opacity: 1;
 }
 .horizontal-container {
 	display: flex;
 	align-items: center; 
-	gap: 32%;
+	gap: 20%;
 }
 #notes {
 	margin: 10px;
@@ -71,11 +71,11 @@ a:hover {
 	margin: 10px;
 }
 p {
-    	border: 5px dotted dodgerblue;
+    	border: 5px dotted lightcyan;
    	opacity: 0.7;
     	border-radius: 20px;
 }
 p:hover {
-    	border: 5px solid dodgerblue;
+    	border: 5px solid lightcyan;
 	opacity: 1;
 }
