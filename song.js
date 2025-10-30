@@ -76,6 +76,7 @@ const play = async () => {
 		pitchSave = pitch;
 		await delay(500);
 		restart = true;
+		reverse = false;
 	}
 	stop();
 }
