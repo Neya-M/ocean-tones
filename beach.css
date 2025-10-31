@@ -62,7 +62,7 @@ a:hover {
 .horizontal-container {
 	display: flex;
 	align-items: center; 
-	gap: 20%;
+	gap: 10%;
 }
 #notes {
 	margin: 10px;

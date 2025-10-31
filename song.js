@@ -23,6 +23,9 @@ gradient.addColorStop(0, `rgb(30, 144, 255)`);
 gradient.addColorStop(0.7, `rgb(0, 191, 255)`);
 gradient.addColorStop(1, "white");
 
+const recording_toggle = document.getElementById('record');
+var blob, recorder = null;
+var chunks = [];
 var amplitude = 20;
 var restart = false;
 var reverse = false;
@@ -53,6 +56,45 @@ function frequency() {
 	oscillator.frequency.setValueAtTime(pitch, audioCtx.currentTime);
 	gainNode.gain.exponentialRampToValueAtTime(0.1, audioCtx.currentTime + 0.99);
 	gainNode.gain.setValueAtTime(0, audioCtx.currentTime + 1);
+}
+
+var is_recording = false;
+function toggle() {
+   is_recording = !is_recording; 
+   if(is_recording){
+       recording_toggle.innerHTML = "Stop Recording";
+       startRecording(); 
+   } else {
+       recording_toggle.innerHTML = "Start Recording";
+       recorder.stop();
+   }
+}
+
+function startRecording() {
+	const canvasStream = canvas.captureStream(20); // Frame rate of canvas
+	const audioDestination = audioCtx.createMediaStreamDestination();
+	gainNode.connect(audioDestination);
+	const combinedStream = new MediaStream();
+	canvasStream.getVideoTracks().forEach(track => combinedStream.addTrack(track));
+	audioDestination.stream.getAudioTracks().forEach(track => combinedStream.addTrack(track));
+	recorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
+	recorder.ondataavailable = e => {
+		if (e.data.size > 0) {
+			chunks.push(e.data);
+		}
+	};
+
+
+	recorder.onstop = () => {
+		const blob = new Blob(chunks, { type: 'video/webm' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'recording.webm';
+		a.click();
+		URL.revokeObjectURL(url);
+	};
+	recorder.start();
 }
 
 function stop() {
